@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./style.scss";
 
 export default function DayNightSwitcher() {
 
+  const [theme, setTheme] = useState(true);
+
   //const parentElem = document.querySelector(".react-toggle")
+  const inputCheckbox = useRef(null);
+  const parentElement = useRef(null);
   const keyCode = Object.freeze({
     'RETURN': 13,
     'SPACE': 32
   });
+
+  const toggleCheckbox = () => {
+    // Handle State of Checkbox
+    if (theme === true) {
+      parentElement.current.classList.remove('react-toggle--checked')
+      inputCheckbox.current.setAttribute('aria-checked', 'false')
+      setTheme(false);
+    } else {
+      parentElement.current.classList.add('react-toggle--checked')
+      inputCheckbox.current.setAttribute('aria-checked', 'true')
+      setTheme(true);
+    }
+  }
+
+  useEffect(() => {
+    // Check State after updating state
+    console.log("Check True:" + theme);
+  })
 
   const handleKeyUp = (e) => {
     e.preventDefault();
@@ -15,8 +37,7 @@ export default function DayNightSwitcher() {
 
     switch (e.keyCode) {
       case keyCode.SPACE:
-        console.log('Toggle Now')
-        //toggleCheckbox();
+        toggleCheckbox();
         flag = true;
         break;
 
@@ -41,9 +62,10 @@ export default function DayNightSwitcher() {
 
   return (
     <>
-      <div className="react-toggle"
+      <div className="react-toggle react-toggle--checked"
         onClick={handleFocus}
         onKeyUp={handleKeyUp}
+        ref={parentElement}
       >
         <div className="react-toggle-track">
           <div className="react-toggle-track-check">
@@ -55,9 +77,10 @@ export default function DayNightSwitcher() {
         </div>
         <div className="react-toggle-thumb"></div>
         <input
+          ref={inputCheckbox}
           type="checkbox"
           aria-label="Dark mode toggle"
-          aria-checked="true"
+          aria-checked="false"
           onFocus={handleFocus}
           onBlur={handleBlur}
           className="react-toggle-screenreader-only"
