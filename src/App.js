@@ -6,6 +6,9 @@ function App() {
   return (
     <>
       <DayNightSwitcher />
+      <code>
+
+      </code>
     </>
   );
 }

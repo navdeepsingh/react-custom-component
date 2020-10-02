@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
+import { connect } from 'react-redux'
 import "./style.scss";
 
-export default function DayNightSwitcher() {
+export default function DayNightSwitcher({ }) {
 
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState('dark');
 
   //const parentElem = document.querySelector(".react-toggle")
   const inputCheckbox = useRef(null);
@@ -15,15 +16,15 @@ export default function DayNightSwitcher() {
 
   const toggleCheckbox = () => {
     // Handle State of Checkbox
-    if (theme === true) {
-      parentElement.current.classList.remove('react-toggle--checked')
-      inputCheckbox.current.setAttribute('aria-checked', 'false')
-      setTheme(false);
-    } else {
-      parentElement.current.classList.add('react-toggle--checked')
-      inputCheckbox.current.setAttribute('aria-checked', 'true')
-      setTheme(true);
-    }
+    // if (theme === 'dark') {
+    //   parentElement.current.classList.remove('react-toggle--checked')
+    //   inputCheckbox.current.setAttribute('aria-checked', 'false')
+    //   setTheme('bright');
+    // } else {
+    //   parentElement.current.classList.add('react-toggle--checked')
+    //   inputCheckbox.current.setAttribute('aria-checked', 'true')
+    //   setTheme('dark');
+    // }
   }
 
   useEffect(() => {
