@@ -1,10 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { connect } from 'react-redux'
+
+import { changeThemeAction, getThemeAction } from "../../redux/actions"
 import "./style.scss";
 
-export default function DayNightSwitcher({ }) {
+function DayNightSwitcher({ dispatch, theme }) {
 
-  const [theme, setTheme] = useState('dark');
+  // const [theme, setTheme] = useState('dark');
 
   //const parentElem = document.querySelector(".react-toggle")
   const inputCheckbox = useRef(null);
@@ -15,22 +17,30 @@ export default function DayNightSwitcher({ }) {
   });
 
   const toggleCheckbox = () => {
+    let theme = dispatch(getThemeAction());
+    console.log(theme);
+
     // Handle State of Checkbox
-    // if (theme === 'dark') {
-    //   parentElement.current.classList.remove('react-toggle--checked')
-    //   inputCheckbox.current.setAttribute('aria-checked', 'false')
-    //   setTheme('bright');
-    // } else {
-    //   parentElement.current.classList.add('react-toggle--checked')
-    //   inputCheckbox.current.setAttribute('aria-checked', 'true')
-    //   setTheme('dark');
-    // }
+    // let currentTheme = dispatch(getTheme());
+    // console.log(currentTheme.theme);
+    // currentTheme.then(theme => {
+    //   console.log(theme);
+    //   if (theme === 'dark') {
+    //     parentElement.current.classList.remove('react-toggle--checked')
+    //     inputCheckbox.current.setAttribute('aria-checked', 'false')
+    //     dispatch(changeThemeAction());
+    //   } else {
+    //     parentElement.current.classList.add('react-toggle--checked')
+    //     inputCheckbox.current.setAttribute('aria-checked', 'true')
+    //     dispatch(changeThemeAction());
+    //   }
+    // })
   }
 
-  useEffect(() => {
+  useEffect((state) => {
     // Check State after updating state
-    console.log("Check True:" + theme);
-  })
+    dispatch(getThemeAction())
+  }, [dispatch]);
 
   const handleKeyUp = (e) => {
     e.preventDefault();
@@ -90,4 +100,12 @@ export default function DayNightSwitcher({ }) {
     </>
   )
 }
+
+// Map Redux state to React component props
+const mapStateToProps = (state) => ({
+  theme: state.theme
+})
+
+// Connect Redux to React
+export default connect(mapStateToProps)(DayNightSwitcher);
 

@@ -2,7 +2,7 @@
  * Reducers
  */
 import { combineReducers } from 'redux'
-import { CHANGE_THEME } from '../actions'
+import * as actions from '../actions'
 
 /**
  * Set start state
@@ -13,10 +13,15 @@ const initialState = {
 
 function themeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_THEME:
+    case actions.CHANGE_THEME:
       return {
         ...state,
         theme: state.theme === 'dark' ? 'bright' : 'dark'
+      }
+    case actions.GET_THEME:
+      return {
+        ...state,
+        theme: state.theme
       }
     default:
       return state;
