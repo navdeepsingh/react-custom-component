@@ -18,11 +18,6 @@ function themeReducer(state = initialState, action) {
         ...state,
         theme: state.theme === 'dark' ? 'bright' : 'dark'
       }
-    case actions.GET_THEME:
-      return {
-        ...state,
-        theme: state.theme
-      }
     default:
       return state;
   }

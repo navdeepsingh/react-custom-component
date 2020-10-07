@@ -1,14 +1,11 @@
-import React, { useRef, useEffect } from "react";
-import { connect } from 'react-redux'
+import React, { useRef } from "react";
+import { connect, useSelector } from 'react-redux'
 
-import { changeThemeAction, getThemeAction } from "../../redux/actions"
+import { changeThemeAction } from "../../redux/actions"
 import "./style.scss";
 
-function DayNightSwitcher({ dispatch, theme }) {
+function DayNightSwitcher({ dispatch, state }) {
 
-  // const [theme, setTheme] = useState('dark');
-
-  //const parentElem = document.querySelector(".react-toggle")
   const inputCheckbox = useRef(null);
   const parentElement = useRef(null);
   const keyCode = Object.freeze({
@@ -16,31 +13,20 @@ function DayNightSwitcher({ dispatch, theme }) {
     'SPACE': 32
   });
 
+  const theme = useSelector(state => state.themeReducer.theme)
+
   const toggleCheckbox = () => {
-    let theme = dispatch(getThemeAction());
-    console.log(theme);
-
-    // Handle State of Checkbox
-    // let currentTheme = dispatch(getTheme());
-    // console.log(currentTheme.theme);
-    // currentTheme.then(theme => {
-    //   console.log(theme);
-    //   if (theme === 'dark') {
-    //     parentElement.current.classList.remove('react-toggle--checked')
-    //     inputCheckbox.current.setAttribute('aria-checked', 'false')
-    //     dispatch(changeThemeAction());
-    //   } else {
-    //     parentElement.current.classList.add('react-toggle--checked')
-    //     inputCheckbox.current.setAttribute('aria-checked', 'true')
-    //     dispatch(changeThemeAction());
-    //   }
-    // })
+    // Handle State of Checkbox    
+    if (theme === 'dark') {
+      parentElement.current.classList.remove('react-toggle--checked')
+      inputCheckbox.current.setAttribute('aria-checked', 'false')
+      dispatch(changeThemeAction());
+    } else {
+      parentElement.current.classList.add('react-toggle--checked')
+      inputCheckbox.current.setAttribute('aria-checked', 'true')
+      dispatch(changeThemeAction());
+    }
   }
-
-  useEffect((state) => {
-    // Check State after updating state
-    dispatch(getThemeAction())
-  }, [dispatch]);
 
   const handleKeyUp = (e) => {
     e.preventDefault();
@@ -66,24 +52,32 @@ function DayNightSwitcher({ dispatch, theme }) {
     document.querySelector(".react-toggle").classList.add('react-toggle--focus');
   }
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    document.querySelector(".react-toggle").classList.add('react-toggle--focus');
+    inputCheckbox.current.focus();
+    toggleCheckbox();
+
+  }
+
   const handleBlur = (e) => {
     e.preventDefault();
+    console.log('Blur');
     document.querySelector(".react-toggle").classList.remove('react-toggle--focus');
   }
 
   return (
     <>
       <div className="react-toggle react-toggle--checked"
-        onClick={handleFocus}
-        onKeyUp={handleKeyUp}
+        onClick={handleClick}
         ref={parentElement}
       >
         <div className="react-toggle-track">
           <div className="react-toggle-track-check">
-            <span className="toggle_keGJ moon_1gwN"></span>
+            <span className="toggle_icon moon"></span>
           </div>
           <div className="react-toggle-track-x">
-            <span className="toggle_keGJ sun_3CPA"></span>
+            <span className="toggle_icon sun"></span>
           </div>
         </div>
         <div className="react-toggle-thumb"></div>
@@ -94,7 +88,8 @@ function DayNightSwitcher({ dispatch, theme }) {
           aria-checked="false"
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className="react-toggle-screenreader-only"
+          onKeyUp={handleKeyUp}
+          className=""
         />
       </div>
     </>

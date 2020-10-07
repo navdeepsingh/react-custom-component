@@ -77,7 +77,7 @@ $prefix: react-toggle;
   }
 }
 
-.toggle_keGJ {
+.toggle_icon{
     align-items: center;
     display: flex;
     height: 10px;
@@ -89,13 +89,13 @@ $prefix: react-toggle;
       position: absolute;
     }
   
-    &.moon_1gwN{
+    &.moon{
       &:before {
         content: "\1F31C";
       }
     }
   
-    &.sun_3CPA{
+    &.sun{
       &:before {
          content: "\1F31E";
       } 
@@ -128,20 +128,6 @@ $prefix: react-toggle;
     position: absolute;
     width: 1px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .container {
   margin: 0 auto;
