@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 // Local Imports
 import App from './App';
-import rootReducer from "./redux/reducers";
+import rootReducer from "./components/day-night-switcher/redux/reducers";
 
 // Assets
 import './index.css';

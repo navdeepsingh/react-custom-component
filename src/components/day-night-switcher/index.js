@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { connect, useSelector } from 'react-redux'
 
-import { changeThemeAction } from "../../redux/actions"
+import { changeThemeAction } from "./redux/actions"
 import "./style.scss";
 
 function DayNightSwitcher({ dispatch, state }) {
@@ -62,7 +62,6 @@ function DayNightSwitcher({ dispatch, state }) {
 
   const handleBlur = (e) => {
     e.preventDefault();
-    console.log('Blur');
     document.querySelector(".react-toggle").classList.remove('react-toggle--focus');
   }
 
@@ -89,7 +88,7 @@ function DayNightSwitcher({ dispatch, state }) {
           onFocus={handleFocus}
           onBlur={handleBlur}
           onKeyUp={handleKeyUp}
-          className=""
+          className="react-toggle-screenreader-only"
         />
       </div>
     </>
